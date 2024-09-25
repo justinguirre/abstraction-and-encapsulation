@@ -4,60 +4,60 @@
 #include <iomanip>
 using namespace std;
 
-class Account{
+class Account{ // account class
 private:
     string name;
     int acctNo;
     int acctType; // 1 for savings, 2 for current
     double balance;
 public:
-    Account(string Name, int AcctNo, int AcctType, double Balance) {
+    Account(string Name, int AcctNo, int AcctType, double Balance) { // used to create an account
         name = Name;
         acctNo = AcctNo;
         acctType = AcctType; // 1 for savings, 2 for current
         balance = Balance;
     }
 
-    string getName() {
+    string getName() { // returns account name
         return name;
     }
-    int getAcctNo() {
+    int getAcctNo() { // returns account number
         return acctNo;
     }
-    int getAcctType() {
+    int getAcctType() { // returns account type
         return acctType;
     }
-    double getBal() {
+    double getBal() { // returns account balance
         return balance;
     }
-    double updateBal(double Amount) {
+    double updateBal(double Amount) { // updates account balance
         balance += Amount;
         return balance;
     }
 };
 
-class Bank {
+class Bank { // bank class
 private:
-    vector<Account> accounts;
+    vector<Account> accounts; // vector for storing accounts
 
-    int generateAcctNo() {
+    int generateAcctNo() { // function to generate an account number
         return accounts.size() + 1;
     }
 public:
-    void createAccount(string Name, int AcctType, double Balance) {
+    void createAccount(string Name, int AcctType, double Balance) { // function to create an account
         int AcctNo = generateAcctNo();
         accounts.push_back(Account(Name, AcctNo, AcctType, Balance));
     }
 
-    void getBalance(int AcctNo, int AcctType) {
+    void getBalance(int AcctNo, int AcctType) { // function to get account balance
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) {
+            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
                 int acctNo = acct.getAcctNo();
                 string name = acct.getName();
                 int acctType = acct.getAcctType();
                 double balance = acct.getBal();
 
-                cout << "\n-[Account Details for " << name << ":]-" << endl;
+                cout << "\n-[Account Details for " << name << ":]-" << endl; // displays account info
                 cout << "Account Number: " << acctNo << endl;
                 if (acctType == 1) {
                     cout << "Account Type: Savings" << endl;
@@ -69,19 +69,19 @@ public:
                 return;
             }
         }
-        cout << "Account not found! >:(";
+        cout << "Account not found! >:("; // cout this if not found
     }
 
-    void deposit(int AcctNo, int AcctType, double Amount) {
+    void deposit(int AcctNo, int AcctType, double Amount) { // function to deposit funds to an account
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) {
-                if (Amount > 0) {
+            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
+                if (Amount > 0) { // checks to see if deposit amount isn't <= 0
                     int acctNo = acct.getAcctNo();
                     string name = acct.getName();
                     int acctType = acct.getAcctType();
                     double balance = acct.getBal();
 
-                    cout << "Deposit Success for " << name << "!" << endl;
+                    cout << "Deposit Success for " << name << "!" << endl; // displays confirmation message
                     cout << "Account Number: " << acctNo << endl;
                     if (acctType == 1) {
                         cout << "Account Type: Savings" << endl;
@@ -94,26 +94,26 @@ public:
                     cout << "New Balance: " << acct.getBal() << endl;
                     cout << "Thank you for banking with ODB! :D" << endl;
                     return;
-                } else {
+                } else { // if deposit amount is <= 0
                     cout << "Invalid Input! >:(" << endl;
                     return;
                 }
             }
         }
-        cout << "Account not found! :(" << endl;
+        cout << "Account not found! :(" << endl; // couts if account is not found
     }
 
-    void withdraw(int AcctNo, int AcctType, double Amount) {
+    void withdraw(int AcctNo, int AcctType, double Amount) { // function to withdraw funds
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) {
-                if (Amount > 0) {
+            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
+                if (Amount > 0) { // checks to see if withdraw amount isn't <= 0
                     int acctNo = acct.getAcctNo();
                     string name = acct.getName();
                     int acctType = acct.getAcctType();
                     double balance = acct.getBal();
 
-                    if (balance >= Amount) {
-                        cout << "Withdraw Success for " << name << "!" << endl;
+                    if (balance >= Amount) { // checks to see if there are sufficient funds
+                        cout << "Withdraw Success for " << name << "!" << endl; // displays success message
                         cout << "Account Number: " << acctNo << endl;
                         if (acctType == 1) {
                             cout << "Account Type: Savings" << endl;
@@ -126,17 +126,17 @@ public:
                         cout << "New Balance: " << acct.getBal() << endl;
                         cout << "Thank you for banking with ODB! :D" << endl;
                         return;
-                    } else {
+                    } else { // if insufficient funds
                         cout << "Insufficient Funds! :(";
                         return;
                     }
-                } else {
+                } else { // if withdraw amount is <= 0
                     cout << "Invalid Input! >:(" << endl;
                     return;
                 }
             }
         }
-        cout << "Account not found! :(" << endl;
+        cout << "Account not found! :(" << endl; // couts if account is not found
     }
 };
 
@@ -150,7 +150,7 @@ int main() {
     bool running = true;
     string name;
 
-    while (running) {
+    while (running) { // main program loop
         cout << "\n-[ODB BANK]-" << endl;
         cout << "[1] Savings Account" << endl;
         cout << "[2] Current Account" << endl;
@@ -270,7 +270,7 @@ int main() {
                     cin.ignore();
                 } while (!(acctType == 1 || acctType == 2));
                 if (acctType == 1) {
-                    bank.createAccount(name, acctType, 1000.0);
+                    bank.createAccount(name, acctType, 1000.0); // 1000 is automatically added when creating a savings account
                 } else {
                     bank.createAccount(name, acctType, 0.0);
                 }
