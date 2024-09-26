@@ -51,7 +51,7 @@ public:
 
     void getBalance(int AcctNo, int AcctType) { // function to get account balance
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
+            if (acct.getAcctNo() == AcctNo) { // searches the vector for the account
                 int acctNo = acct.getAcctNo();
                 string name = acct.getName();
                 int acctType = acct.getAcctType();
@@ -74,7 +74,7 @@ public:
 
     void deposit(int AcctNo, int AcctType, double Amount) { // function to deposit funds to an account
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
+            if (acct.getAcctNo() == AcctNo) { // searches the vector for the account
                 if (Amount > 0) { // checks to see if deposit amount isn't <= 0
                     int acctNo = acct.getAcctNo();
                     string name = acct.getName();
@@ -105,7 +105,7 @@ public:
 
     void withdraw(int AcctNo, int AcctType, double Amount) { // function to withdraw funds
         for (auto &acct : accounts) {
-            if (acct.getAcctNo() == AcctNo && acct.getAcctType() == AcctType) { // searches the vector for the account
+            if (acct.getAcctNo() == AcctNo) { // searches the vector for the account
                 if (Amount > 0) { // checks to see if withdraw amount isn't <= 0
                     int acctNo = acct.getAcctNo();
                     string name = acct.getName();
